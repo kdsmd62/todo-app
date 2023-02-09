@@ -4,6 +4,7 @@ import com.project.todoapp.dto.TodoDto;
 import com.project.todoapp.entity.Todo;
 import com.project.todoapp.mapper.TodoMapper;
 import com.project.todoapp.service.TodoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,8 +15,9 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/todos")
+@RequestMapping("/")
 @Validated
+@Slf4j
 public class TodoController {
     private final TodoService todoService;
     private final TodoMapper mapper;
@@ -35,8 +37,7 @@ public class TodoController {
     @PatchMapping("/{id}")
     public ResponseEntity patchToDo(@Positive @PathVariable("id") long id,
                                     @RequestBody @Valid TodoDto.Patch patchDto) {
-        patchDto.setId(id);
-        Todo todo = todoService.updateTodo(mapper.patchDtoToTodo(patchDto));
+        Todo todo = todoService.updateTodo(id, patchDto);
 
         return new ResponseEntity(mapper.todoToTodoResponseDto(todo), HttpStatus.OK);
     }
@@ -56,12 +57,16 @@ public class TodoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteToDo(@PathVariable("id") long id) {
+    public ResponseEntity deleteToDo(@PathVariable("id") long id) {
         todoService.deleteTodo(id);
+
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping
-    public void deleteToDos() {
+    public ResponseEntity deleteToDos() {
         todoService.deleteTodos();
+
+        return ResponseEntity.ok().build();
     }
 }

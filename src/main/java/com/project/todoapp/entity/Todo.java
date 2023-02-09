@@ -18,8 +18,8 @@ public class Todo {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private Integer todoOrder;
+    @Column(nullable = false, name = "orders")
+    private Integer order;
 
     @Column(nullable = false)
     private Boolean completed;

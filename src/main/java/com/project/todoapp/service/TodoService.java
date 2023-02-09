@@ -1,5 +1,6 @@
 package com.project.todoapp.service;
 
+import com.project.todoapp.dto.TodoDto;
 import com.project.todoapp.entity.Todo;
 import com.project.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
@@ -20,16 +21,16 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public Todo updateTodo(Todo todo) {
+    public Todo updateTodo(Long id, TodoDto.Patch patchDto) {
         // 수정할 todoItem 정보 조회
-        Todo findTodoItem = findVerifiedTodoItem(todo.getId());
+        Todo findTodoItem = findVerifiedTodoItem(id);
 
         // 값이 null 인지 확인
-        Optional.ofNullable(todo.getTitle())
+        Optional.ofNullable(patchDto.getTitle())
                 .ifPresent(title -> findTodoItem.setTitle(title));
-        Optional.ofNullable(todo.getTodoOrder())
-                .ifPresent(todoOrder -> findTodoItem.setTodoOrder(todoOrder));
-        Optional.ofNullable(todo.getCompleted())
+        Optional.ofNullable(patchDto.getOrder())
+                .ifPresent(todoOrder -> findTodoItem.setOrder(todoOrder));
+        Optional.ofNullable(patchDto.getCompleted())
                 .ifPresent(completed -> findTodoItem.setCompleted(completed));
 
         return todoRepository.save(findTodoItem);

@@ -14,6 +14,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PATCH", "DELETE") // 허용할 HTTP method
                 .allowCredentials(true) // 쿠키 인증 요청 허용
                 .maxAge(3600) // 원하는 시간만큼 pre-flight 리퀘스트를 캐싱
-                .allowedHeaders( "x-requested-with, origin, content-type, accept");
+                .allowedHeaders( "x-requested-with", "origin", "content-type", "accept");
     }
 }

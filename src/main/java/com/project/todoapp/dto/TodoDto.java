@@ -2,6 +2,7 @@ package com.project.todoapp.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -12,11 +13,10 @@ public class TodoDto {
     @Getter
     @AllArgsConstructor
     public static class Post {
-        @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String title;
 
-        private int todoOrder;
-        @NotNull
+        private Integer order;
+
         private Boolean completed;
 
     }
@@ -24,24 +24,23 @@ public class TodoDto {
     @Getter
     @AllArgsConstructor
     public static class Patch {
-        private long id;
         private String title;
-        private Integer todoOrder;
+        private Integer order;
         private Boolean completed;
-
-        public void setId(long id) {
-            this.id = id;
-        }
     }
 
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class TodoResponseDto {
-        private long id;
+        private Long id;
         private String title;
-        private int todoOrder;
+        private Integer order;
         private Boolean completed;
-
+        private String url;
+        public void setUrl(String url) {
+            this.url = url + this.id;
+        }
     }
 }
