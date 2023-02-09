@@ -6,6 +6,7 @@ Spring Boot 학습를 위해 사이드 프로젝트로 작업한 내용입니다
 ## 프로젝트 소개
 
 - Todo-Backend 사이트에서 이미 구현되어 있는 프론트엔드 리소스를 이용해 백엔트에서 작업한 결과물을 확인할 수 있습니다.
+  https://todobackend.com/client/index.html?{URI}
 
 <br>
 
